@@ -9,7 +9,7 @@ function App(){
 
   });
   const [tripResult,setTripResult]=useState(null);
-  const [loading,setLoading]=(false);
+  const [loading,setLoading]=useState(false);
 
   const generateTrip=async ()=>{
     setLoading(true);
