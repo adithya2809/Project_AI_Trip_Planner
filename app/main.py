@@ -1,6 +1,7 @@
 from fastapi import FastAPI
-from schemas import TripRequest,TripResponse
-from gemini_client import client
+from app.schemas import TripRequest,TripResponse
+from app.gemini_client import client
+from fastapi.middleware.cors import CORSMiddleware
 app=FastAPI()
 
 @app.post("/trip/generate/",response_model=TripResponse)
@@ -28,3 +29,11 @@ def generate_trip(trip:TripRequest):
     )
     trip_response=TripResponse.model_validate_json(response.text)
     return trip_response
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
