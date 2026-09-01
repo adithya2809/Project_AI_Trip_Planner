@@ -29,6 +29,11 @@ def generate_trip(trip:TripRequest):
         }
          )
         trip_response=TripResponse.model_validate_json(response.text)
+        if trip_response.budget>trip.budget:
+            raise HTTPException(
+                status_code=500,
+                detail="Generated trip exceeds the requested budget"
+            )
     except Exception as e:
         print("Gemini Error:",e)
         raise HTTPException(
