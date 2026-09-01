@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,HTTPException,status
 from app.schemas import TripRequest,TripResponse
 from app.gemini_client import client
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,15 +19,22 @@ def generate_trip(trip:TripRequest):
 
     Keep the itinerary realistic and concise.
 """
-    response=client.models.generate_content(
+    try:
+        response=client.models.generate_content(
         model="gemini-3.5-flash-lite",
         contents=prompt,
         config={
             "response_mime_type":"application/json",
             "response_schema":TripResponse
         }
-    )
-    trip_response=TripResponse.model_validate_json(response.text)
+         )
+        trip_response=TripResponse.model_validate_json(response.text)
+    except Exception as e:
+        print("Gemini Error:",e)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to generate Trip"
+        ) 
     return trip_response
 
 app.add_middleware(

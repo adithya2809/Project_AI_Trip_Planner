@@ -10,8 +10,9 @@ function App(){
   });
   const [tripResult,setTripResult]=useState(null);
   const [loading,setLoading]=useState(false);
-
+  const [error,setError]=useState("");
   const generateTrip=async ()=>{
+    setError("");
     setLoading(true);
 
     try{
@@ -26,11 +27,16 @@ function App(){
       );
       const data=await response.json();
       console.log("API response:", data);
+      if(!response.ok){
+        throw new error(data.detail||"failed to generate trip")
+      }
       setTripResult(data);
 
     }
     catch(error){
-      console.error("error generating trip: ",error);
+
+      setError(error.message);
+      setTripResult(null);
     }
     finally{
       setLoading(false)
@@ -82,7 +88,9 @@ return(
     })
   }
 />
-  <button onClick={generateTrip}>{loading?"generating...":"Generate"}</button>
+  <button onClick={generateTrip} disabled={loading}>{loading?"generating...":"Generate"}</button>
+  {error &&
+  <p>❌{error}</p>}
   {tripResult && (
   <div>
     <h1>{tripResult.destination}</h1>
@@ -93,7 +101,7 @@ return(
       <div key={day.day}>
         <h2>Day {day.day}</h2>
 
-        {day.activities?.map((activity, index) => (
+        {day.activities.map((activity, index) => (
           <p key={index}>
             <strong>{activity.time}:</strong>{" "}
             {activity.activity}
@@ -103,6 +111,7 @@ return(
     ))}
   </div>
 )}
+
   </>
 );
 }
