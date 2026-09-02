@@ -1,3 +1,31 @@
+body{
+  margin: 0;
+background: black;
+}
+
 .input_error{
   border: 1px solid red;
+}
+
+.day-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: #ddd;
+}
+.day-card h2{
+    background-color: darkslategray;
+}
+.activity {
+  padding: 10px;
+  margin-bottom: 10px;
+  
+}
+
+.activity strong {
+  color: #555;
+}
+
+.activity p{
+  margin: 0;
 }

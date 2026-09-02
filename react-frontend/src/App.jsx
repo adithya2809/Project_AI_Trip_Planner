@@ -157,15 +157,15 @@ return(
     <p>Budget: ₹{tripResult.budget}</p>
 
     {tripResult.itinerary.map((day) => (
-      <div key={day.day}>
+      <div key={day.day} className="day-card">
         <h2>Day {day.day}</h2>
-
+      
         {day.activities.map((activity, index) => (
-          <p key={index}>
-            <strong>{activity.time}:</strong>{" "}
-            {activity.activity}
-          </p>
-        ))}
+  <div key={index} className="activity">
+    <strong>{activity.time}</strong>
+    <p>{activity.activity}</p>
+  </div>
+))}
       </div>
     ))}
   </div>
