@@ -148,6 +148,13 @@ return(
 <p>{errors.interests}</p>
 }
   <button onClick={generateTrip} disabled={loading}>{loading?"generating...":"Generate"}</button>
+  {loading &&(
+  <div className="loading">
+  <span></span>
+  <span></span>
+  <span></span>
+  </div>
+ ) }
   {error &&
   <p>❌{error}</p>}
   {tripResult && (
