@@ -94,38 +94,59 @@ return(
   type="number"
   placeholder="Days"
   value={trip.days}
-  onChange={(e) =>
+  className={errors.days?"input_error":""}
+  onChange={(e) =>{
     setTrip({
       ...trip,
       days: Number(e.target.value)
-    })
+    });
+  if (errors.days){
+    setErrors({...errors,days:""});
+  }}
   }
 />
+{errors.days &&
+<p>{errors.days}</p>
+}
 
 <input
   type="number"
   placeholder="Budget"
   value={trip.budget}
-  onChange={(e) =>
+  className={errors.budget?"input_error":""}
+  onChange={(e) =>{
     setTrip({
       ...trip,
       budget: Number(e.target.value)
-    })
-  }
+    });
+    if (errors.budget){
+      setErrors({...errors,budget:""});
+    }
+  }}
 />
+{errors.budget &&
+<p>{errors.budget}</p>
+}
 <input
   type="text"
   placeholder="Interests (e.g. food, temples, shopping)"
-  onChange={(e) =>
+  className={errors.interests?"input_error":""}
+  onChange={(e) =>{
     setTrip({
       ...trip,
       interests: e.target.value
         .split(",")
         .map((item) => item.trim())
         .filter((item) => item !== "")
-    })
-  }
+    });
+    if (errors.interests){
+      setErrors({...errors,interests:""})
+    }
+  }}
 />
+{errors.interests &&
+<p>{errors.interests}</p>
+}
   <button onClick={generateTrip} disabled={loading}>{loading?"generating...":"Generate"}</button>
   {error &&
   <p>❌{error}</p>}
