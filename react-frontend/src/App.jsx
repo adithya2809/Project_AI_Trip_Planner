@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import './app.css'
 function App(){
   const [trip,setTrip]=useState({
     destination:"",
@@ -11,8 +11,39 @@ function App(){
   const [tripResult,setTripResult]=useState(null);
   const [loading,setLoading]=useState(false);
   const [error,setError]=useState("");
+  const [errors,setErrors]=useState({
+    destination:"",
+    days:"",
+    budget:"",
+    interests:""
+  });
+  const validateForm=()=>{
+    const newErrors={
+      destination:"",
+      days:"",
+      budget:"",
+      interests:""
+    };
+    if (trip.destination.trim()===""){
+      newErrors.destination="Please enter a destination";
+    }
+    if (trip.days <= 0) {
+    newErrors.days="Days must be greater than 0";
+  }
+
+    if (trip.budget <= 0) {
+    newErrors.budget="Budget must be greater than 0";
+  }
+
+    if (trip.interests.length === 0) {
+    newErrors.interests="Please enter at least one interest";
+  }
+    setErrors(newErrors);
+    return Object.values(newErrors).every((error)=>error==="")
+  }
   const generateTrip=async ()=>{
     setError("");
+    if (!validateForm()) return;
     setLoading(true);
 
     try{
@@ -23,18 +54,16 @@ function App(){
         },
         body:JSON.stringify(trip)
       }
-        
       );
       const data=await response.json();
       console.log("API response:", data);
       if(!response.ok){
-        throw new error(data.detail||"failed to generate trip")
+        throw new Error(data.detail||"failed to generate trip")
       }
       setTripResult(data);
-
     }
     catch(error){
-
+      console.error("Error generating trip:", error)
       setError(error.message);
       setTripResult(null);
     }
@@ -46,12 +75,21 @@ function App(){
 
 return(
   <>
-  <input type="text" placeholder='destination' value={trip.destination} onChange={(e)=>
+  <input type="text" placeholder='destination' value={trip.destination} 
+  className={errors.destination?"input_error":""} 
+  onChange={(e)=>{
     setTrip({
       ...trip,
       destination: e.target.value
-    })
-  }/>
+    });
+    if (errors.destination){
+      setErrors({...errors,destination:""});
+    }
+  }}/>
+  {errors.destination&&(
+    <p>{errors.destination}</p>  
+    )}
+   
   <input
   type="number"
   placeholder="Days"
