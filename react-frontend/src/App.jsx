@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './app.css'
+import './App.css'
 function App(){
   const [trip,setTrip]=useState({
     destination:"",
@@ -75,6 +75,7 @@ function App(){
 
 return(
   <>
+  <div className="inputs">
   <input type="text" placeholder='destination' value={trip.destination} 
   className={errors.destination?"input_error":""} 
   onChange={(e)=>{
@@ -144,6 +145,7 @@ return(
     }
   }}
 />
+</div>
 {errors.interests &&
 <p>{errors.interests}</p>
 }
