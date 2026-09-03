@@ -3,8 +3,8 @@ import './App.css'
 function App(){
   const [trip,setTrip]=useState({
     destination:"",
-    days: 1,
-    budget: 0,
+    days: "",
+    budget: "",
     interests:[]
 
   });
@@ -96,7 +96,7 @@ return(
    
   <input
   type="number"
-  placeholder="Days"
+  placeholder='Days'
   value={trip.days}
   className={errors.days?"input_error":""}
   onChange={(e) =>{
@@ -115,7 +115,7 @@ return(
 
 <input
   type="number"
-  placeholder="Budget"
+  placeholder='Budget'
   value={trip.budget}
   className={errors.budget?"input_error":""}
   onChange={(e) =>{
