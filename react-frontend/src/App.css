@@ -13,6 +13,11 @@ body{
   margin: 0;
 background: black;
 }
+
+header h1 span{
+  color: darkslategray;
+}
+
 .inputs{
     display: flex;
     flex-direction: column;
@@ -21,24 +26,32 @@ background: black;
 .inputs input{
   align-items: center;
   width: 50%;
+  background-color: black;
+  border: 1px solid darkslategray;
   margin-inline: 25%;
   margin-bottom: 15px;
   height: 30px;
 }
+.inputs input:focus{
+  background-color: black;
+  border-color: darkslategray;
+}
 
 button{
   display: block;
+  background-color: black;
   margin: 20px auto;
-  height: 10vh;
-  width: min(160px, 40vw);
+  height: 5vh;
+  width: min(120px, 40vw);
   
-  border: 1px solid white;
+  border: 1px solid darkslategray;
   border-radius: 5px;
 }
 button:hover{
   cursor: pointer;
   background-color: darkslategray;
   color: white;
+
 }
 .input_error{
   border: 1px solid red;

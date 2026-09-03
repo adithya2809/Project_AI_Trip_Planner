@@ -75,6 +75,9 @@ function App(){
 
 return(
   <>
+  <header>
+    <h1>Itinera<span>AI</span></h1>
+  </header>
   <div className="inputs">
   <input type="text" placeholder='destination' value={trip.destination} 
   className={errors.destination?"input_error":""} 
