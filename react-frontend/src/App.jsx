@@ -5,6 +5,7 @@ function App(){
     origin:"",
     destination:"",
     days: "",
+    persons:"",
     budget: "",
     interests:[]
 
@@ -16,6 +17,7 @@ function App(){
     origin:"",
     destination:"",
     days:"",
+    persons:"",
     budget:"",
     interests:""
   });
@@ -24,6 +26,7 @@ function App(){
       origin:"",
       destination:"",
       days:"",
+      persons:"",
       budget:"",
       interests:""
     };
@@ -36,7 +39,9 @@ function App(){
     if (trip.days <= 0) {
     newErrors.days="Days must be greater than 0";
   }
-
+    if (trip.persons <= 0){
+      newErrors.persons="Members must be greater than 0";
+    }
     if (trip.budget <= 0) {
     newErrors.budget="Budget must be greater than 0";
   }
@@ -92,7 +97,8 @@ return(
     <h1>Itinera<span>AI</span></h1>
   </header>
   <div className="inputs">
-  <input type="text" placeholder='origin(from)' value={trip.origin} 
+  <div className="floating-field">
+  <input id="origin" type="text" placeholder=" " value={trip.origin} 
   className={errors.origin?"input_error":""}
   onChange={(e)=>{
     setTrip({
@@ -103,11 +109,14 @@ return(
       setErrors({...errors,origin:""});
     }
   }}/>
+  <label htmlFor="origin">Origin (from)</label>
+  </div>
   {errors.origin&&(
     <p>{errors.origin}</p>  
     )}
   
-  <input type="text" placeholder='destination' value={trip.destination} 
+  <div className="floating-field">
+  <input id="destination" type="text" placeholder=" " value={trip.destination} 
   className={errors.destination?"input_error":""} 
   onChange={(e)=>{
     setTrip({
@@ -118,13 +127,17 @@ return(
       setErrors({...errors,destination:""});
     }
   }}/>
+  <label htmlFor="destination">Destination</label>
+  </div>
   {errors.destination&&(
     <p>{errors.destination}</p>  
     )}
    
+  <div className="floating-field">
   <input
+  id="days"
   type="number"
-  placeholder='Days'
+  placeholder=" "
   value={trip.days}
   className={errors.days?"input_error":""}
   onChange={(e) =>{
@@ -137,13 +150,40 @@ return(
   }}
   }
 />
+  <label htmlFor="days">Days</label>
+  </div>
 {errors.days &&
 <p>{errors.days}</p>
 }
 
+<div className="floating-field">
 <input
+  id="members"
   type="number"
-  placeholder='Budget'
+  placeholder=" "
+  value={trip.persons}
+  className={errors.persons?"input_error":""}
+  onChange={(e) =>{
+    setTrip({
+      ...trip,
+      persons: Number(e.target.value)
+    });
+  if (errors.persons){
+    setErrors({...errors,persons:""});
+  }}
+  }
+/>
+  <label htmlFor="members">Members</label>
+  </div>
+{errors.persons &&
+<p>{errors.persons}</p>
+}
+
+<div className="floating-field">
+<input
+  id="budget"
+  type="number"
+  placeholder=" "
   value={trip.budget}
   className={errors.budget?"input_error":""}
   onChange={(e) =>{
@@ -156,12 +196,16 @@ return(
     }
   }}
 />
+<label htmlFor="budget">Budget per person (in ₹)</label>
+</div>
 {errors.budget &&
 <p>{errors.budget}</p>
 }
+<div className="floating-field">
 <input
+  id="interests"
   type="text"
-  placeholder="Interests (e.g. food, temples, shopping)"
+  placeholder=" "
   className={errors.interests?"input_error":""}
   onChange={(e) =>{
     setTrip({
@@ -176,6 +220,8 @@ return(
     }
   }}
 />
+<label htmlFor="interests">Interests (e.g. food, temples, shopping)</label>
+</div>
 </div>
 {errors.interests &&
 <p>{errors.interests}</p>
@@ -194,7 +240,7 @@ return(
   <div>
     <h1>{tripResult.destination}</h1>
 
-    <p>Budget: ₹{tripResult.budget}</p>
+    <p>Budget: ₹{tripResult.budget} per Person</p>
         <p>Total Estimated Cost:₹{totalCost}</p>
 
     {tripResult.itinerary.map((day) => (

@@ -9,6 +9,7 @@
     transform: translateY(0);
   }
 }
+
 body{
   margin: 0;
 background: black;
@@ -23,14 +24,39 @@ header h1 span{
     flex-direction: column;
     justify-content: center;
 }
-.inputs input{
-  align-items: center;
+.floating-field{
+  position: relative;
   width: 50%;
-  background-color: black;
-  border: 1px solid darkslategray;
   margin-inline: 25%;
   margin-bottom: 15px;
-  height: 30px;
+}
+.inputs input{
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: black;
+  border: 1px solid darkslategray;
+  height: 50px;
+  padding: 0 10px;
+  color: white;
+}
+.floating-field label{
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  color: #999;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transform-origin: left center;
+  transition: transform 0.2s ease, top 0.2s ease, color 0.2s ease;
+}
+.floating-field input:focus + label,
+.floating-field input:not(:placeholder-shown) + label{
+  top: 7px;
+  color: darkslategray;
+  background: black;
+  padding-inline: 4px;
+  transform: translateY(-50%) scale(0.75);
 }
 .inputs input:focus{
   background-color: black;

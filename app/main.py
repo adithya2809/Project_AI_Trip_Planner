@@ -8,9 +8,9 @@ app=FastAPI()
 def generate_trip(trip:TripRequest):
     prompt=f"""You are an AI travel planner.
 
-    Plan a {trip.days}-day trip from {trip.origin} to {trip.destination}.
+    Plan a {trip.days}-day trip from {trip.origin} to {trip.destination} including {trip.persons} person(s).
 
-    The traveler's budget is ₹{trip.budget}.
+    The traveler's budget is ₹{trip.budget} per person.
 
     Their interests are: {", ".join(trip.interests)}.
 
