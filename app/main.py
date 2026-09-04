@@ -8,7 +8,7 @@ app=FastAPI()
 def generate_trip(trip:TripRequest):
     prompt=f"""You are an AI travel planner.
 
-    Plan a {trip.days}-day trip from {trip.origin} to {trip.destination} including {trip.persons} person(s).
+    Plan a {trip.days}-day trip from {trip.origin} to {trip.destination} including {trip.persons} person(s) in the trip.
 
     The traveler's budget is ₹{trip.budget} per person.
 
@@ -17,8 +17,13 @@ def generate_trip(trip:TripRequest):
     Organize the itinerary by day, with morning,
     afternoon, and evening activities.
     For every activity, include an estimated cost in Indian rupees.
+    Include the estimated transportation cost for traveling from the origin to the destination.
+    Return the transportation details with:
+    - mode of transport
+    - description
+    - estimated cost in Indian rupees
     Keep the itinerary realistic and concise.
-"""
+    """
     try:
         response=client.models.generate_content(
         model="gemini-3.5-flash-lite",

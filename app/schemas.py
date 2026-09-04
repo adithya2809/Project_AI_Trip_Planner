@@ -17,7 +17,12 @@ class DayPlan(BaseModel):
     day:int
     activities:list[Activity]
 
+class TravelCost(BaseModel):
+    mode:str
+    description:str
+    cost:int
 class TripResponse(BaseModel):
     destination:str
     budget:float
+    transportation:TravelCost
     itinerary:list[DayPlan]

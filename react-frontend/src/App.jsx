@@ -19,6 +19,7 @@ function App(){
     days:"",
     persons:"",
     budget:"",
+    transportation:"",
     interests:""
   });
   const validateForm=()=>{
@@ -242,8 +243,13 @@ return(
 
     <p>Budget: ₹{tripResult.budget} per Person</p>
         <p>Total Estimated Cost:₹{totalCost}</p>
-
-    {tripResult.itinerary.map((day) => (
+<div className="transportation">
+  <h2>Transportation</h2>
+  <p><strong>{tripResult.transportation.mode}</strong></p>
+  <p>{tripResult.transportation.description}</p>
+  <p>Estimated cost: ₹{tripResult.transportation.cost}</p>
+</div>    
+{tripResult.itinerary.map((day) => (
       <div key={day.day} className="day-card">
         <h2>Day {day.day}</h2>
       
