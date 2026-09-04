@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 function App(){
   const [trip,setTrip]=useState({
+    origin:"",
     destination:"",
     days: "",
     budget: "",
@@ -12,6 +13,7 @@ function App(){
   const [loading,setLoading]=useState(false);
   const [error,setError]=useState("");
   const [errors,setErrors]=useState({
+    origin:"",
     destination:"",
     days:"",
     budget:"",
@@ -19,11 +21,15 @@ function App(){
   });
   const validateForm=()=>{
     const newErrors={
+      origin:"",
       destination:"",
       days:"",
       budget:"",
       interests:""
     };
+    if(trip.origin.trim()===""){
+      newErrors.origin="Please enter your Starting Location"
+    }
     if (trip.destination.trim()===""){
       newErrors.destination="Please enter a destination";
     }
@@ -86,6 +92,21 @@ return(
     <h1>Itinera<span>AI</span></h1>
   </header>
   <div className="inputs">
+  <input type="text" placeholder='origin(from)' value={trip.origin} 
+  className={errors.origin?"input_error":""}
+  onChange={(e)=>{
+    setTrip({
+      ...trip,
+      origin:e.target.value
+    });
+     if (errors.origin){
+      setErrors({...errors,origin:""});
+    }
+  }}/>
+  {errors.origin&&(
+    <p>{errors.origin}</p>  
+    )}
+  
   <input type="text" placeholder='destination' value={trip.destination} 
   className={errors.destination?"input_error":""} 
   onChange={(e)=>{
