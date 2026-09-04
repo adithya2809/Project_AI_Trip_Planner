@@ -16,7 +16,7 @@ def generate_trip(trip:TripRequest):
 
     Organize the itinerary by day, with morning,
     afternoon, and evening activities.
-
+    For every activity, include an estimated cost in Indian rupees.
     Keep the itinerary realistic and concise.
 """
     try:

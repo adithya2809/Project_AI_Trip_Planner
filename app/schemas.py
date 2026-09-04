@@ -9,6 +9,7 @@ class TripRequest(BaseModel):
 class Activity(BaseModel):
     time:str
     activity:str
+    cost:int
 
 class DayPlan(BaseModel):
     day:int
